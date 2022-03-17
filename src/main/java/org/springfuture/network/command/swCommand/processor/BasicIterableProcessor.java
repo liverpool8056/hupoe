@@ -18,6 +18,8 @@ public class BasicIterableProcessor<T>{
         ArrayList<T> holderList = new ArrayList<>();
         for(String line : iterable){
             T generate = processor.generate(line);
+//            System.out.println(line);
+//            System.out.println(generate);
             if(generate!=null){
                 holderList.add(generate);
             }

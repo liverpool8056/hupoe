@@ -16,6 +16,7 @@ public abstract class AbstractSwitchSession extends AbstractDevSession implement
 
     protected <T> List<T> sendAndGetCollection(String cmd, Processor<T> processor) throws ExecutionException {
         ExpectResult expectResult = sendCmd(cmd);
+//        System.out.println(expectResult.getOutput());
         BasicIterableProcessor<T> basicIterableProcessor = new BasicIterableProcessor<>(expectResult, processor);
         return basicIterableProcessor.process();
     }
@@ -30,4 +31,8 @@ public abstract class AbstractSwitchSession extends AbstractDevSession implement
         }
     }
 
+    @Override
+    public String rawCmd(String cmd) throws ExecutionException {
+        return sendCmd(cmd).getOutput();
+    }
 }

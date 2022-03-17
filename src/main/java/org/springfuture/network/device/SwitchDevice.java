@@ -22,6 +22,13 @@ public class SwitchDevice {
 
         private String serialNum;
 
+        public SwitchDevice() {
+        }
+
+        public SwitchDevice(String ip) {
+                this.ip = ip;
+        }
+
         public String getName() {
                 return name;
         }

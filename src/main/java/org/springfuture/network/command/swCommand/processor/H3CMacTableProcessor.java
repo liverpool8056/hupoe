@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class H3CMacTableProcessor extends BasicMacTableProcessor{
 
     private final static Pattern p =
-            Pattern.compile("(?<mac>"+MAC_4_LOWER_SLASH_PATTERN+")\\s+" +
+            Pattern.compile("(?<mac>"+MAC_4_LOWER_DASH_PATTERN+")\\s+" +
                     "(?<vlanNum>\\d+)\\s+Learned\\s+(?<port>"+H3C_PORT_PATTERN+")");
 
     public H3CMacTableProcessor(SwitchDevice switchDevice) {

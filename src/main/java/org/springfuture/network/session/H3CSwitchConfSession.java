@@ -19,16 +19,16 @@ public class H3CSwitchConfSession extends AbstractSwitchConfSession{
 
     @Override
     public void defaultPortConf(String portName) throws ExecutionException {
-        switchSession.sendCmd(commandSet.cmdDefaultPortConfig(portName));
+        switchSession.sendCmd(""); // H3C don't support default interface in conf session
     }
 
     @Override
-    public void createVlan(String vlanNum) throws ExecutionException {
+    public void createVlan(int vlanNum) throws ExecutionException {
         switchSession.sendCmd(commandSet.cmdCreateVlan(vlanNum));
     }
 
     @Override
-    public void createPortGroup(String portGroupNum) throws ExecutionException {
+    public void createPortGroup(int portGroupNum) throws ExecutionException {
         switchSession.sendCmd(commandSet.cmdCreatePortGroup(portGroupNum));
     }
 

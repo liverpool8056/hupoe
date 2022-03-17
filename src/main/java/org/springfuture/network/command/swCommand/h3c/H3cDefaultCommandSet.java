@@ -42,7 +42,8 @@ public class H3cDefaultCommandSet extends CommandSet {
     private static final String CREATE_PORT_GROUP = "int Bridge-Aggregation %s";
     //vlan
     private static final String GET_VLAN_LIST = "display vlan brief";
-    private static final String GET_VLAN_ID = "sh vlan id %s";
+    private static final String GET_VLAN_ID = "disp vlan %s";
+    private static final String GET_L3_VLAN_DETAIL = "disp ip int vlan %s";
     private static final String CREATE_VLAN = "vlan %s";
     //neighbour
     public static final String SHOW_LLDP_NEIGHBORS_LIST = "display lldp neighbor-information list";
@@ -142,7 +143,7 @@ public class H3cDefaultCommandSet extends CommandSet {
     }
 
     @Override
-    public String cmdSetPortVlan(String vlanNum) {
+    public String cmdSetPortVlan(int vlanNum) {
         return String.format(SET_PORT_VLAN, vlanNum);
     }
 
@@ -151,17 +152,17 @@ public class H3cDefaultCommandSet extends CommandSet {
     }
 
     @Override
-    public String cmdSetPermitPortTrunkVlan(String vlanNumStart, String vlanNumEnd) {
+    public String cmdSetPermitPortTrunkVlan(int vlanNumStart, int vlanNumEnd) {
         return String.format(PERMIT_PORT_TRUNK_VLAN, vlanNumStart, vlanNumEnd);
     }
 
     @Override
-    public String cmdSetNoPermitPortTrunkVlan(String vlanNum) {
+    public String cmdSetNoPermitPortTrunkVlan(int vlanNum) {
         return String.format(NO_PERMIT_PORT_TRUNK_VLAN, vlanNum);
     }
 
     @Override
-    public String cmdSetPortIntoPortGroup(String portGroupNum) {
+    public String cmdSetPortIntoPortGroup(int portGroupNum) {
         return String.format(SET_PORT_INTO_PORT_GROUP, portGroupNum);
     }
 
@@ -181,7 +182,7 @@ public class H3cDefaultCommandSet extends CommandSet {
     }
 
     @Override
-    public String cmdCreatePortGroup(String portGroupNum) {
+    public String cmdCreatePortGroup(int portGroupNum) {
         return String.format(CREATE_PORT_GROUP, portGroupNum);
     }
 
@@ -195,12 +196,17 @@ public class H3cDefaultCommandSet extends CommandSet {
     }
 
     @Override
-    public String cmdGetVlanDetail(String vlanNum) {
+    public String cmdGetVlanDetail(int vlanNum) {
         return String.format(GET_VLAN_ID, vlanNum);
     }
 
     @Override
-    public String cmdCreateVlan(String vlanNum) {
+    public String cmdGetL3VlanDetail(int vlanNum) {
+        return String.format(GET_L3_VLAN_DETAIL, vlanNum);
+    }
+
+    @Override
+    public String cmdCreateVlan(int vlanNum) {
         return String.format(CREATE_VLAN, vlanNum);
     }
 

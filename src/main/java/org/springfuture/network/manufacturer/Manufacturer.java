@@ -1,6 +1,7 @@
 package org.springfuture.network.manufacturer;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum Manufacturer {
     UNKNOWN("UNKNOWN"),
@@ -17,12 +18,13 @@ public enum Manufacturer {
         return name;
     }
 
-    public String[] alias(){
-        HashSet<String> aliasSet = new HashSet<>();
+    public List<String> alias(){
+        List<String> alias = new ArrayList<>();
         String lowerCaseName = name.toLowerCase();
-        String capitalName = lowerCaseName.substring(0, lowerCaseName.length()-1) + lowerCaseName.substring(0, 0).toUpperCase();
-        aliasSet.add(lowerCaseName);
-        aliasSet.add(capitalName);
-        return (String []) aliasSet.toArray();
+        String capitalName = lowerCaseName.substring(0, 1).toUpperCase() +
+                lowerCaseName.substring(1);
+        alias.add(lowerCaseName);
+        alias.add(capitalName);
+        return alias;
     }
 }

@@ -12,6 +12,7 @@ public class CiscoDefaultCommandSet extends CommandSet {
     public static final String CONF_T = "conf t";
     public static final String EXIT = "exit";
     public static final String END = "end";
+    public static final String CONFIRM_YES = "y";
 
     //facts
     private static final String GET_INVENTORY = "show inventory";
@@ -28,7 +29,7 @@ public class CiscoDefaultCommandSet extends CommandSet {
     //port
     private static final String GET_PORT_STATUS_LIST = "show int status";
     private static final String GET_PORT_CONF = "show run int %s";
-    private static final String SET_PORT_INTO_PORT_GROUP = "channel-group %s mode active";
+    private static final String SET_PORT_INTO_PORT_GROUP_MODE_ACTIVE = "channel-group %s mode active";
     private static final String DEFAULT_PORT_CONF = "default int %s";
     private static final String SET_PORT_SWITCH_MODE = "switchport mode %s";
     private static final String SET_PORT_VLAN = "switchport access vlan %s";
@@ -43,6 +44,7 @@ public class CiscoDefaultCommandSet extends CommandSet {
     //vlan
     private static final String GET_VLAN_LIST = "show vlan";
     private static final String GET_VLAN_DETAIL = "show vlan id %s";
+    private static final String GET_L3_VLAN_DETAIL = "show ip int vlan %s";
     private static final String CREATE_VLAN = "vlan %s";
     //neighbour
     public static final String SHOW_LLDP_NEIGHBORS_DETAIL = "show lldp neighbors detail";
@@ -71,6 +73,11 @@ public class CiscoDefaultCommandSet extends CommandSet {
     @Override
     public String exit() {
         return EXIT;
+    }
+
+    @Override
+    public String confirmYes() {
+        return CONFIRM_YES;
     }
 
     @Override
@@ -124,8 +131,8 @@ public class CiscoDefaultCommandSet extends CommandSet {
     }
 
     @Override
-    public String cmdSetPortIntoPortGroup(String portGroupNum) {
-        return String.format(SET_PORT_INTO_PORT_GROUP, portGroupNum);
+    public String cmdSetPortIntoPortGroup(int portGroupNum) {
+        return String.format(SET_PORT_INTO_PORT_GROUP_MODE_ACTIVE, portGroupNum);
     }
 
     @Override
@@ -135,21 +142,21 @@ public class CiscoDefaultCommandSet extends CommandSet {
 
     @Override
     public String cmdSetPortSwitchMode(String switchMode) {
-        return SET_PORT_SWITCH_MODE;
+        return String.format(SET_PORT_SWITCH_MODE, switchMode);
     }
 
     @Override
-    public String cmdSetPortVlan(String vlanNum) {
-        return SET_PORT_VLAN;
+    public String cmdSetPortVlan(int vlanNum) {
+        return String.format(SET_PORT_VLAN, vlanNum);
     }
 
     @Override
-    public String cmdSetPermitPortTrunkVlan(String vlanNumStart, String vlanNumEnd) {
+    public String cmdSetPermitPortTrunkVlan(int vlanNumStart, int vlanNumEnd) {
         return String.format(ALLOW_VLAN, vlanNumStart);
     }
 
     @Override
-    public String cmdSetNoPermitPortTrunkVlan(String vlanNum) {
+    public String cmdSetNoPermitPortTrunkVlan(int vlanNum) {
         return String.format(REMOVE_FROM_ALLOW_VLAN, vlanNum);
     }
 
@@ -169,7 +176,7 @@ public class CiscoDefaultCommandSet extends CommandSet {
     }
 
     @Override
-    public String cmdCreatePortGroup(String portGroupNum) {
+    public String cmdCreatePortGroup(int portGroupNum) {
         return String.format(CREATE_PORT_GROUP, portGroupNum);
     }
 
@@ -179,12 +186,17 @@ public class CiscoDefaultCommandSet extends CommandSet {
     }
 
     @Override
-    public String cmdGetVlanDetail(String vlanNum) {
+    public String cmdGetVlanDetail(int vlanNum) {
         return String.format(GET_VLAN_DETAIL, vlanNum);
     }
 
     @Override
-    public String cmdCreateVlan(String vlanNum) {
+    public String cmdGetL3VlanDetail(int vlanNum) {
+        return String.format(GET_L3_VLAN_DETAIL, vlanNum);
+    }
+
+    @Override
+    public String cmdCreateVlan(int vlanNum) {
         return String.format(CREATE_VLAN, vlanNum);
     }
 

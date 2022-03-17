@@ -23,12 +23,12 @@ public class NexusSwitchConfSession extends AbstractSwitchConfSession{
     }
 
     @Override
-    public void createVlan(String vlanNum) throws ExecutionException {
+    public void createVlan(int vlanNum) throws ExecutionException {
         switchSession.sendCmd(commandSet.cmdCreateVlan(vlanNum));
     }
 
     @Override
-    public void createPortGroup(String portGroupNum) throws ExecutionException {
+    public void createPortGroup(int portGroupNum) throws ExecutionException {
         switchSession.sendCmd(commandSet.cmdCreatePortGroup(portGroupNum));
     }
 

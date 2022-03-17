@@ -1,10 +1,7 @@
 package org.springfuture.network.command.swCommand.processor;
 
-import org.springfuture.network.bean.Arp;
 import org.springfuture.network.device.SwitchDevice;
-import org.springfuture.network.utils.MacUtils;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NexusArpProcessor extends BasicArpProcessor {

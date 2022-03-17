@@ -1,9 +1,7 @@
 package org.springfuture.network.command.swCommand.processor;
 
 import org.springfuture.network.bean.Segment;
-import org.springfuture.network.utils.MacUtils;
-
-import java.util.HashMap;
+import org.springfuture.network.utils.NetUtils;
 
 public class NexusVlanDetailProcessor implements Processor<Segment>{
 
@@ -19,7 +17,7 @@ public class NexusVlanDetailProcessor implements Processor<Segment>{
                 String[] subnetSegs = subnetStr.split("/");
                 idx = subnetSegs[1].indexOf(" ");
                 if(idx > 0) subnetSegs[1] = subnetSegs[1].substring(0, idx);
-                return new Segment(subnetSegs[0], MacUtils.maskMap.get(Integer.valueOf(subnetSegs[1])));
+                return new Segment(subnetSegs[0], NetUtils.maskMap.get(Integer.valueOf(subnetSegs[1])));
             }
         }
         return null;

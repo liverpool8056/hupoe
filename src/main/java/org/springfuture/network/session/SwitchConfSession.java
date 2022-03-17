@@ -6,9 +6,9 @@ public interface SwitchConfSession {
 
     void defaultPortConf(String portName) throws ExecutionException;
 
-    void createVlan(String vlanNum) throws ExecutionException;
+    void createVlan(int vlanNum) throws ExecutionException;
 
-    void createPortGroup(String portGroupNum) throws ExecutionException;
+    void createPortGroup(int portGroupNum) throws ExecutionException;
 
     SwitchSession end() throws ExecutionException;
 }

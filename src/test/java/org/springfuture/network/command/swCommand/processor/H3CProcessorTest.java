@@ -966,6 +966,31 @@ public class H3CProcessorTest {
         System.out.println(process);
     }
 
+//    @Test
+//    public void parseIpInterfaceBrief(){
+//        String output = "disp ip int b\n" +
+//                "*down: administratively down\n" +
+//                "(s): spoofing  (l): loopback\n" +
+//                "Interface           Physical Protocol IP address      VPN instance Description\n" +
+//                "HGE1/0/59           up       up       10.5.253.106    --           --\n" +
+//                "HGE1/0/60           up       up       10.5.253.134    --           --\n" +
+//                "HGE2/0/59           up       up       10.5.253.110    --           --\n" +
+//                "HGE2/0/60           up       up       10.5.253.138    --           --\n" +
+//                "Loop0               up       up(s)    10.5.255.17     --           --\n" +
+//                "MGE0/0/0            down     down     --              --           --\n" +
+//                "MGE0/0/1            down     down     --              --           --\n" +
+//                "Vlan1               down     down     --              --           --\n" +
+//                "Vlan32              up       up       10.198.32.1     --           --\n" +
+//                "Vlan251             up       up       10.5.251.65     --           --\n" +
+//                "Vlan582             up       up       10.198.58.129   --           pxe_dhcp\n" +
+//                "Vlan3000            up       up       1.1.1.5         --           --\n" +
+//                "<SH-YF-C-9820-10.5.255.17>";
+//        ExpectResult expectResult = new ExpectResult(true, 0, "", output);
+//        BasicIterableProcessor<Port> basicIterableProcessor = new BasicIterableProcessor<>(expectResult, new H3CIpInterfaceBriefProcessor());
+//        List<Port> process = basicIterableProcessor.process();
+//        System.out.println(process);
+//    }
+
     @Test
     public void parseVlanNameMap() {
         String output = "disp vlan brief\n" +
@@ -1089,41 +1114,41 @@ public class H3CProcessorTest {
         System.out.println(process);
     }
 
-    @Test
-    public void parseVlanDetail() {
-
-        String output = " disp ip int vlan 612\n" +
-                "Vlan-interface612 current state: UP\n" +
-                "Line protocol current state: UP\n" +
-                "Internet Address is 10.198.61.129/25 Primary\n" +
-                "Broadcast address: 10.198.61.255\n" +
-                "The Maximum Transmit Unit: 1500 bytes\n" +
-                "input packets : 0, bytes : 0, multicasts : 0\n" +
-                "output packets : 0, bytes : 0, multicasts : 0\n" +
-                "TTL invalid packet number:         0\n" +
-                "ICMP packet input number:          0\n" +
-                "  Echo reply:                      0\n" +
-                "  Unreachable:                     0\n" +
-                "  Source quench:                   0\n" +
-                "  Routing redirect:                0\n" +
-                "  Echo request:                    0\n" +
-                "  Router advert:                   0\n" +
-                "  Router solicit:                  0\n" +
-                "  Time exceed:                     0\n" +
-                "  IP header bad:                   0\n" +
-                "  Timestamp request:               0\n" +
-                "  Timestamp reply:                 0\n" +
-                "  Information request:             0\n" +
-                "  Information reply:               0\n" +
-                "  Netmask request:                 0\n" +
-                "  Netmask reply:                   0\n" +
-                "  Unknown type:                    0\n" +
-                "\n" +
-                "<SH-LG-C-9820-10.142.255.15>";
-        ExpectResult expectResult = new ExpectResult(true, 0, "", output);
-        Segment generate = new H3CVlanDetailProcessor().generate(output);
-        System.out.println(generate);
-    }
+//    @Test
+//    public void parseVlanDetail() {
+//
+//        String output = " disp ip int vlan 612\n" +
+//                "Vlan-interface612 current state: UP\n" +
+//                "Line protocol current state: UP\n" +
+//                "Internet Address is 10.198.61.129/25 Primary\n" +
+//                "Broadcast address: 10.198.61.255\n" +
+//                "The Maximum Transmit Unit: 1500 bytes\n" +
+//                "input packets : 0, bytes : 0, multicasts : 0\n" +
+//                "output packets : 0, bytes : 0, multicasts : 0\n" +
+//                "TTL invalid packet number:         0\n" +
+//                "ICMP packet input number:          0\n" +
+//                "  Echo reply:                      0\n" +
+//                "  Unreachable:                     0\n" +
+//                "  Source quench:                   0\n" +
+//                "  Routing redirect:                0\n" +
+//                "  Echo request:                    0\n" +
+//                "  Router advert:                   0\n" +
+//                "  Router solicit:                  0\n" +
+//                "  Time exceed:                     0\n" +
+//                "  IP header bad:                   0\n" +
+//                "  Timestamp request:               0\n" +
+//                "  Timestamp reply:                 0\n" +
+//                "  Information request:             0\n" +
+//                "  Information reply:               0\n" +
+//                "  Netmask request:                 0\n" +
+//                "  Netmask reply:                   0\n" +
+//                "  Unknown type:                    0\n" +
+//                "\n" +
+//                "<SH-LG-C-9820-10.142.255.15>";
+//        ExpectResult expectResult = new ExpectResult(true, 0, "", output);
+//        Segment generate = new H3CVlanDetailProcessor().generate(output);
+//        System.out.println(generate);
+//    }
 
     @Test
     public void parseIpInterfaceBrief() {
@@ -1362,5 +1387,41 @@ public class H3CProcessorTest {
         BasicIterableProcessor<PortStatus> portStatusBasicIterableProcessor = new BasicIterableProcessor<>(expectResult, new H3CPortStatusProcessor());
         List<PortStatus> process = portStatusBasicIterableProcessor.process();
         System.out.println(process);
+    }
+
+    @Test
+    public void testParseL3VlanDetail(){
+        String output = "disp ip int vlan 32\n" +
+                "Vlan-interface32 current state: UP\n" +
+                "Line protocol current state: UP\n" +
+                "Internet Address is 10.198.32.1/23 Primary\n" +
+                "Broadcast address: 10.198.33.255\n" +
+                "The Maximum Transmit Unit: 1500 bytes\n" +
+                "input packets : 0, bytes : 0, multicasts : 0\n" +
+                "output packets : 0, bytes : 0, multicasts : 0\n" +
+                "TTL invalid packet number:         0\n" +
+                "ICMP packet input number:     808735\n" +
+                "  Echo reply:                     42\n" +
+                "  Unreachable:                     0\n" +
+                "  Source quench:                   0\n" +
+                "  Routing redirect:                0\n" +
+                "  Echo request:               808693\n" +
+                "  Router advert:                   0\n" +
+                "  Router solicit:                  0\n" +
+                "  Time exceed:                     0\n" +
+                "  IP header bad:                   0\n" +
+                "  Timestamp request:               0\n" +
+                "  Timestamp reply:                 0\n" +
+                "  Information request:             0\n" +
+                "  Information reply:               0\n" +
+                "  Netmask request:                 0\n" +
+                "  Netmask reply:                   0\n" +
+                "  Unknown type:                    0\n" +
+                "\n" +
+                "<SH-YF-C-9820-10.5.255.17>";
+        ExpectResult expectResult = new ExpectResult(true, 0, "", output);
+        H3CVlanDetailProcessor h3CVlanDetailProcessor = new H3CVlanDetailProcessor();
+        Segment generate = h3CVlanDetailProcessor.generate(expectResult.getOutput());
+        System.out.println(generate);
     }
 }

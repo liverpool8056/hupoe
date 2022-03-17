@@ -13,7 +13,7 @@ public class H3CIpInterfaceBriefProcessor implements Processor<Port>{
                     "(?<protocol>"+H3C_PORT_PROTOCOL_STATUS+")\\s+" +
                     "(?<ip>"+H3C_PORT_IP_PATTERN+")\\s+" +
                     "(?:--|\\S+)\\s+" +
-                    "(?<desc>--|\\S+)$"
+                    "(?<desc>--|\\S+)"
             );
 
     @Override

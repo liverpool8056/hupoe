@@ -1,6 +1,9 @@
 package org.springfuture.network.session;
 
 import org.springfuture.network.command.CommandSet;
+import org.springfuture.network.command.swCommand.enums.PortSwitchMode;
+
+import java.util.ArrayList;
 
 public class H3CSwitchPortSession extends AbstractSwitchPortSession{
 
@@ -18,22 +21,31 @@ public class H3CSwitchPortSession extends AbstractSwitchPortSession{
     }
 
     @Override
-    public void exit() {
-
+    public SwitchConfSession exit() throws ExecutionException {
+        switchSession.sendCmd(commandSet.exit());
+        return new H3CSwitchConfSession(switchSession);
     }
 
     @Override
-    public void setPortSwitchMode(String mode) throws ExecutionException {
-        switchSession.sendCmd(commandSet.cmdSetPortSwitchMode(mode));
+    public void defaultPortConfig() throws ExecutionException {
+        ArrayList<String> expectList = new ArrayList<>();
+        expectList.add("[Y/N]:");
+        switchSession.sendCmd("default", expectList, 3);
+        switchSession.sendCmd(commandSet.confirmYes());
     }
 
     @Override
-    public void setPortVlan(String vlanNum) throws ExecutionException {
+    public void setPortSwitchMode(PortSwitchMode mode) throws ExecutionException {
+        switchSession.sendCmd(commandSet.cmdSetPortSwitchMode(mode.getMode()));
+    }
+
+    @Override
+    public void setPortVlan(int vlanNum) throws ExecutionException {
         switchSession.sendCmd(commandSet.cmdSetPortVlan(vlanNum));
     }
 
     @Override
-    public void setPortIntoPortGroup(String portGroupNum) throws ExecutionException {
+    public void setPortIntoPortGroupModeActive(int portGroupNum) throws ExecutionException {
         switchSession.sendCmd(commandSet.cmdSetPortIntoPortGroup(portGroupNum));
     }
 

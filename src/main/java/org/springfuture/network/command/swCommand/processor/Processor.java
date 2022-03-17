@@ -4,7 +4,7 @@ public interface Processor <T>{
 
     String IP_PATTERN = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
     String MAC_4_LOWER_DOT_PATTERN = "[a-z0-9]{4}\\.[a-z0-9]{4}\\.[a-z0-9]{4}";
-    String MAC_4_LOWER_SLASH_PATTERN ="[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}";
+    String MAC_4_LOWER_DASH_PATTERN ="[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}";
     //CISCO
     String CISCO_PORT_PATTERN = "[PVE][a-z0-9/]+";
     String CISCO_LOOP_PORT_PATTERN = "Lo0";

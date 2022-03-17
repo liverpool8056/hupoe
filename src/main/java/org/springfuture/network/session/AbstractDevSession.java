@@ -12,6 +12,7 @@ import org.springfuture.network.ssh.exception.ConnectionException;
 import org.springfuture.network.ssh.exception.ExpectTimeoutException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,8 +20,8 @@ import java.util.regex.Pattern;
 
 public abstract class AbstractDevSession implements DevSession{
 
-    protected final static List<String> DEFAULT_PROMPTS = Arrays.asList("\\S+>", "\\S#", "\\S]");
-    protected final static String DEFAULT_ERROR_PATTERN = "% Invalid command";
+    protected final static List<String> DEFAULT_PROMPTS = Arrays.asList("\\S+>", "\\S#", "\\S]$");
+    protected final static List<String> DEFAULT_ERROR_PATTERNS = Arrays.asList("% Invalid command", "^");
 
     protected final static int DEFAULT_EXPECT_TIMEOUT = 3;
 
@@ -90,9 +91,17 @@ public abstract class AbstractDevSession implements DevSession{
 
     public ExpectResult sendCmd(String cmd, List<String> expectedPrompts, int timeOut) throws ExecutionException{
         ExpectResult expect;
+//        expectedPrompts.addAll(DEFAULT_PROMPTS);
+        ArrayList<String> tmp = new ArrayList<>();
+        for(int i=0; i<expectedPrompts.size(); i++){
+            tmp.add(expectedPrompts.get(i));
+        }
+        for(int i=0; i< DEFAULT_PROMPTS.size(); i++){
+            tmp.add(DEFAULT_PROMPTS.get(i));
+        }
         try {
             ssh.send(cmd+"\n");
-            expect = expect(expectedPrompts, timeOut);
+            expect = expect(tmp, timeOut);
         } catch (IOException | SessionReadException e) {
             throw new ExecutionException(e);
         }
@@ -141,6 +150,7 @@ public abstract class AbstractDevSession implements DevSession{
     }
 
     protected boolean checkValidCommand(String output){
-        return output == null ? true : output.contains(DEFAULT_ERROR_PATTERN);
+        return DEFAULT_ERROR_PATTERNS.stream().anyMatch(p->output.contains(p));
+//        return output == null ? true : output.contains(DEFAULT_ERROR_PATTERN);
     }
 }

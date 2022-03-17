@@ -3,7 +3,7 @@ package org.springfuture.network.utils;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class MacUtils {
+public class NetUtils {
 
     public final static HashMap<Integer, String> maskMap = new HashMap<>();
 

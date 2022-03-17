@@ -10,16 +10,19 @@ public class SwitchSessionFactory {
         Manufacturer manufacturer = switchDevice.getManufacturer();
         if(manufacturer==null) manufacturer=Manufacturer.UNKNOWN;
         switch (manufacturer){
+            case CISCO:
+                NexusSession nexusSession = new NexusSession(switchDevice);
+                nexusSession.openSession(username, password);
+                return nexusSession;
             case H3C:
                 H3CSession h3CSession = new H3CSession(switchDevice);
                 h3CSession.openSession(username, password);
                 return h3CSession;
-            case CISCO:
             case UNKNOWN:
             default:
-                NexusSession nexusSession = new NexusSession(switchDevice);
-                nexusSession.openSession(username, password);
-                return nexusSession;
+                UnknownSwitchSession unknownSwitchSession = new UnknownSwitchSession(switchDevice);
+                unknownSwitchSession.openSession(username, password);
+                return unknownSwitchSession;
         }
     }
 }

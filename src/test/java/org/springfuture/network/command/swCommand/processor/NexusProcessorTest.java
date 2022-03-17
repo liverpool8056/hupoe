@@ -1101,6 +1101,22 @@ public class NexusProcessorTest {
     }
 
     @Test
+    public void parseMacOnPort() {
+        String output = "show mac address-table dynamic int e102/1/35\n" +
+                "Legend:\n" +
+                "        * - primary entry, G - Gateway MAC, (R) - Routed MAC, O - Overlay MAC\n" +
+                "        age - seconds since last seen,+ - primary entry using vPC Peer-Link\n" +
+                "   VLAN     MAC Address      Type      age     Secure NTFY   Ports/SWID.SSID.LID\n" +
+                "---------+-----------------+--------+---------+------+----+------------------\n" +
+                "* 30       50af.7329.d547    dynamic   10         F    F  Eth102/1/35\n" +
+                "SH-YF-A-N5K-192.168.100.53-IP#";
+        ExpectResult expectResult = new ExpectResult(true, 0, "", output);
+        BasicIterableProcessor<String> macBasicIterableProcessor = new BasicIterableProcessor(expectResult, new NexusMacOnPortProcessor());
+        System.out.println(macBasicIterableProcessor.process());
+
+    }
+
+    @Test
     public void parseMacTable() {
         String output = " sh mac address-table\n" +
                 "Legend:\n" +
@@ -1219,7 +1235,7 @@ public class NexusProcessorTest {
 
     @Test
     public void ipInterfaceBriefProcessor() {
-        String output = " sh ip inter b\n" +
+        String output = "SH-YF-A-N5K-192.168.100.53-IP# sh ip int b\n" +
                 "IP Interface Status for VRF \"default\"(1)\n" +
                 "Interface            IP Address      Interface Status\n" +
                 "Vlan5                10.211.5.2      protocol-up/link-up/admin-up\n" +

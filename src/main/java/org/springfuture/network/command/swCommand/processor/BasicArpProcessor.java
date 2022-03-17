@@ -2,7 +2,7 @@ package org.springfuture.network.command.swCommand.processor;
 
 import org.springfuture.network.bean.Arp;
 import org.springfuture.network.device.SwitchDevice;
-import org.springfuture.network.utils.MacUtils;
+import org.springfuture.network.utils.NetUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +27,7 @@ public class BasicArpProcessor extends AbstractProcessor<Arp>{
         if (!matcher.find()) return null;
         String ip = matcher.group("ip");
         String mac = matcher.group("mac");
-        mac = MacUtils.macFormatter(mac);
+        mac = NetUtils.macFormatter(mac);
 //        String vlanNum = matcher.group("vlanNum");
         String port = matcher.group("port");
         return new Arp(ip, mac, device.getIp(), port);

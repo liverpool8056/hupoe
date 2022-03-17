@@ -27,13 +27,15 @@ public interface SwitchSession extends DevSession{
 
     List<L2Vlan> getVlanList() throws ExecutionException;
 
-    Segment getVlanDetail(String vlanNum) throws ExecutionException;
+    Segment getL3VlanDetail(int vlanNum) throws ExecutionException;
 
     List<LLDPNeighbor> getLLDPNeighbors() throws ExecutionException;
 
     SwitchConfSession getConfSession() throws ExecutionException;
 
     SwitchPortSession getPortSession(String portName) throws ExecutionException;
+
+    String rawCmd(String cmd) throws ExecutionException;
 
     CommandSet getCommandSet();
 }

@@ -37,7 +37,7 @@ public class H3CSession extends AbstractSwitchSession {
 
     @Override
     public List<MacEntry> getMacTableOnSwitch() throws ExecutionException {
-        return sendAndGetCollection(commandSet.cmdGetMacOnSwitch(), new H3CMacTableProcessor());
+        return sendAndGetCollection(commandSet.cmdGetMacOnSwitch(), new H3CMacTableProcessor(switchDevice));
     }
 
     @Override
@@ -74,8 +74,8 @@ public class H3CSession extends AbstractSwitchSession {
     }
 
     @Override
-    public Segment getVlanDetail(String vlanNum) throws ExecutionException {
-        ExpectResult expectResult = sendCmd(commandSet.cmdGetVlanDetail(vlanNum));
+    public Segment getL3VlanDetail(int vlanNum) throws ExecutionException {
+        ExpectResult expectResult = sendCmd(commandSet.cmdGetL3VlanDetail(vlanNum));
         H3CVlanDetailProcessor h3CVlanDetailProcessor = new H3CVlanDetailProcessor();
         return h3CVlanDetailProcessor.generate(expectResult.getOutput());
     }

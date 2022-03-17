@@ -12,7 +12,7 @@ public class NexusIpInterfaceBriefProcessor implements Processor<Port> {
                     "(?<ip>"+IP_PATTERN+")\\s+" +
                     "protocol-(?<protocol>up|down)/" +
                     "link-(?<physical>up|down)/" +
-                    "admin-(?<admin>up|down)$");
+                    "admin-(?<admin>up|down)");
     @Override
     public Port generate(String src) {
         Matcher matcher = p.matcher(src);

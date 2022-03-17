@@ -7,6 +7,7 @@ import org.springfuture.network.command.swCommand.processor.*;
 import org.springfuture.network.device.SwitchDevice;
 import org.springfuture.network.ssh.ExpectResult;
 
+import java.lang.reflect.Proxy;
 import java.util.List;
 
 public class NexusSession extends AbstractSwitchSession {
@@ -76,8 +77,8 @@ public class NexusSession extends AbstractSwitchSession {
     }
 
     @Override
-    public Segment getVlanDetail(String vlanNum) throws ExecutionException {
-        ExpectResult expectResult = sendCmd(COMMAND_SET.cmdGetVlanDetail(vlanNum));
+    public Segment getL3VlanDetail(int vlanNum) throws ExecutionException {
+        ExpectResult expectResult = sendCmd(COMMAND_SET.cmdGetL3VlanDetail(vlanNum));
         NexusVlanDetailProcessor nexusVlanDetailProcessor = new NexusVlanDetailProcessor();
         return nexusVlanDetailProcessor.generate(expectResult.getOutput());
     }
@@ -92,7 +93,12 @@ public class NexusSession extends AbstractSwitchSession {
     @Override
     public SwitchConfSession getConfSession() throws ExecutionException {
         sendCmd(COMMAND_SET.cmdConf());
-        return new NexusSwitchConfSession(this);
+        SwitchConfSession nexusSwitchConfSession = new NexusSwitchConfSession(this);
+        return (SwitchConfSession) Proxy.newProxyInstance(
+                SwitchConfSession.class.getClassLoader(),
+                new Class[]{SwitchConfSession.class},
+                new SessionInvocationHandler(nexusSwitchConfSession)
+        );
     }
 
     @Override

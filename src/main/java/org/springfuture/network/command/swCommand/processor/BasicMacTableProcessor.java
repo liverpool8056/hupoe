@@ -2,7 +2,7 @@ package org.springfuture.network.command.swCommand.processor;
 
 import org.springfuture.network.bean.MacEntry;
 import org.springfuture.network.device.SwitchDevice;
-import org.springfuture.network.utils.MacUtils;
+import org.springfuture.network.utils.NetUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +27,7 @@ public class BasicMacTableProcessor extends AbstractProcessor<MacEntry>{
         String mac = matcher.group("mac");
         String vlanNum = matcher.group("vlanNum");
         String port = matcher.group("port");
-        return new MacEntry(MacUtils.macFormatter(mac), vlanNum, device.getIp(), port);
+        return new MacEntry(NetUtils.macFormatter(mac), vlanNum, device.getIp(), port);
     }
 
 }

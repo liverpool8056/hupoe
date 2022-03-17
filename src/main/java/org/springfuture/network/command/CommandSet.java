@@ -10,6 +10,7 @@ public abstract class CommandSet {
     public abstract String cmdConf();
     public abstract String end();
     public abstract String exit();
+    public abstract String confirmYes();
 
     //facts
     public abstract String cmdGetInventory();
@@ -28,19 +29,20 @@ public abstract class CommandSet {
     public abstract String cmdGetPortConf(String portName);
     public abstract String cmdDefaultPortConfig(String portName); //should be executed under port
     public abstract String cmdSetPortSwitchMode(String switchMode);
-    public abstract String cmdSetPortVlan(String vlanNum);
-    public abstract String cmdSetPermitPortTrunkVlan(String vlanNumStart, String vlanNumEnd);
-    public abstract String cmdSetNoPermitPortTrunkVlan(String vlanNum);
-    public abstract String cmdSetPortIntoPortGroup(String portGroupNum);
+    public abstract String cmdSetPortVlan(int vlanNum);
+    public abstract String cmdSetPermitPortTrunkVlan(int vlanNumStart, int vlanNumEnd);
+    public abstract String cmdSetNoPermitPortTrunkVlan(int vlanNum);
+    public abstract String cmdSetPortIntoPortGroup(int portGroupNum);
     public abstract String cmdSetPortShutDown();
     public abstract String cmdSetPortNoShutDown();
     //port group
     public abstract String cmdGetPortGroupList();
-    public abstract String cmdCreatePortGroup(String portGroupNum);
+    public abstract String cmdCreatePortGroup(int portGroupNum);
     //vlan
     public abstract String cmdGetVlanList();
-    public abstract String cmdGetVlanDetail(String vlanNum);
-    public abstract String cmdCreateVlan(String vlanNum);
+    public abstract String cmdGetVlanDetail(int vlanNum);
+    public abstract String cmdGetL3VlanDetail(int vlanNum);
+    public abstract String cmdCreateVlan(int vlanNum);
     //neighbour
     public abstract String cmdGetLLDPNeighborsList();
     public abstract String cmdGetLLDPNeighborsDetails();
